@@ -14,11 +14,10 @@
     <style>
         .cell-hyphens {
    word-wrap: break-word;
-   max-width: 350px;
+   max-width: 1px;
 }
         .cell-hyphen {
    word-wrap: break-word;
-   max-width: 100px;
 }
     </style>
 </head>
@@ -128,8 +127,8 @@
                     <tr style="dispaly:flex; class="cell-hyphens">
                     <th scope="row" class="cell-hyphens">${index + 1}</th>
                     <td class="cell-hyphen">${element[0]}</td>
-                    <td  class="cell-hyphens">${element[1]}</td> 
-                    <td><button class="btn btn-sm btn-primary" onclick="deleted(${index})">Delete</button></td> 
+                    <td  class="cell-hyphens" style="width:70%">${element[1]}</td> 
+                    <td ><button class="btn btn-sm btn-primary" onclick="deleted(${index})">Delete</button></td> 
                     </tr>`; 
                 });
                 tableBody.innerHTML = str;
