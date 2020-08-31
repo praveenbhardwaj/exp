@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+    <title>What To do Today!</title>
+    <style>
+        .cell-hyphens {
+   word-wrap: break-word;
+   max-width: 350px;
+}
+        .cell-hyphen {
+   word-wrap: break-word;
+   max-width: 100px;
+}
+    </style>
+</head>
+
+<body>
+    <div class="container">
+
+        <div class="container">
+            
+              <div class="text-center mb-4">
+                <img class="mb-4" src="/docs/4.5/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
+                <h1 class="h3 mb-3 font-weight-normal">Live TO-DO List Project</h1>
+                <p>Build with the help of <code>HTML , Bootstrap & JAVASCRIPT</code>. </p>
+              </div>
+              
+        
+          </div>
+         <form>
+
+        <div class="form-group">
+            <label for="title">Note's Title</label>
+            <input class="form-control" id="title" aria-describedby="emailHelp">
+            <small id="emailHelp" class="form-text text-muted">add an item to the list</small>
+        </div>
+
+        <div class="form-group">
+            <label for="description">Write your Notes here</label>
+            <textarea class="form-control" id="description" rows="3"></textarea>
+        </div>
+
+        <button  id="add" class="btn btn-primary">Add To List</button>
+        
+    </form>
+        <div id="items" class="my-4">
+            <h2 class="contet-center" >Works TO_DO Today</h2>
+            <table class="table" border="1px" style="table-layout: auto;">
+                <thead>
+                  <tr>
+                    <th scope="col" class="content-center">SNo</th>
+                    <th scope="col"class="content-center">Works</th>
+                    <th scope="col" class="content-center">More Details</th> 
+                    <th scope="col" class="content-center">Actions</th> 
+                  </tr>
+                </thead>
+                <tbody id="tableBody" style="background-color: #EC3EAA;">
+                <tr >
+                    <th scope="row">1</th>
+                    <td>Get some Coffee</td>
+                    <td >You need coffee as you are a coder</td> 
+                    <td ><button class="btn btn-sm " >Delete</button></td> 
+                  </tr>
+                 
+                </tbody>
+              </table>
+             
+        </div>
+        <button  id="add" class="btn btn-primary content-center" onclick="clearLocal()">Clear All</button>
+        <button  id="prints" class="btn btn-primary content-center" onclick="PrintDiv(); ">print TO_DO</button>
+        <footer class="blog-footer text-center my-4" style="margin-top:10px;">
+            <p> This is a Templete build for <code> DATE & TIME project </code> by <a
+                    href="https://twitter.com/Azadhindsoch">@AzadHindSoch</a>.</p>
+
+        </footer>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+        crossorigin="anonymous"></script>
+        <script>
+            function getAndUpdate(){
+                console.log("Updating List...");
+                tit = document.getElementById('title').value;
+                desc = document.getElementById('description').value;
+                if (localStorage.getItem('itemsJson')==null){
+                    itemJsonArray = [];
+                    itemJsonArray.push([tit, desc]);
+                    localStorage.setItem('itemsJson', JSON.stringify(itemJsonArray))
+                }
+                else{
+                    itemJsonArrayStr = localStorage.getItem('itemsJson')
+                    itemJsonArray = JSON.parse(itemJsonArrayStr);
+                    itemJsonArray.push([tit, desc]);
+                    localStorage.setItem('itemsJson', JSON.stringify(itemJsonArray))
+                }
+                update();
+            }
+
+            function update(){
+                if (localStorage.getItem('itemsJson')==null){
+                    itemJsonArray = []; 
+                    localStorage.setItem('itemsJson', JSON.stringify(itemJsonArray))
+                } 
+                else{
+                    itemJsonArrayStr = localStorage.getItem('itemsJson')
+                    itemJsonArray = JSON.parse(itemJsonArrayStr); 
+                }
+                // Populate the table
+                let tableBody = document.getElementById("tableBody");
+                let str = "";
+                itemJsonArray.forEach((element, index) => {
+                    str += `
+                    <tr style="dispaly:flex; class="cell-hyphens">
+                    <th scope="row" class="cell-hyphens">${index + 1}</th>
+                    <td class="cell-hyphen">${element[0]}</td>
+                    <td  class="cell-hyphens">${element[1]}</td> 
+                    <td><button class="btn btn-sm btn-primary" onclick="deleted(${index})">Delete</button></td> 
+                    </tr>`; 
+                });
+                tableBody.innerHTML = str;
+            }
+            add = document.getElementById("add");
+            add.addEventListener("click", getAndUpdate);
+            update();
+            document.getElementById("title").reset();
+            function deleted(itemIndex){
+                console.log("Delete", itemIndex);
+                itemJsonArrayStr = localStorage.getItem('itemsJson')
+                itemJsonArray = JSON.parse(itemJsonArrayStr);
+                // Delete itemIndex element from the array
+                itemJsonArray.splice(itemIndex, 1);
+                localStorage.setItem('itemsJson', JSON.stringify(itemJsonArray));
+                update();
+               
+
+            }
+            function clearLocal(){
+                if (confirm("Do you really want to clear?")){
+                console.log('Clearing the storage')
+                localStorage.clear();
+                update()
+                }
+            }
+        
+            function PrintDiv() {  
+            var divContents = document.getElementById("items").innerHTML;  
+            var printWindow = window.open('', '', 'height=200,width=400');  
+            printWindow.document.write('<html><head><title>Print DIV Content</title>');  
+            printWindow.document.write('</head><body >');  
+            printWindow.document.write(divContents);  
+            printWindow.document.write('</body></html>');  
+            printWindow.document.close();  
+            printWindow.print();  
+        }  
+            
+        </script>
+
+
+
+
+
+
+</body>
+
+</html>
