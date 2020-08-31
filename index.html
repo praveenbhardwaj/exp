@@ -66,7 +66,7 @@
                 <tr >
                     <th scope="row">1</th>
                     <td>Get some Coffee</td>
-                    <td >You need coffee as you are a coder</td> 
+                    <td style="width:75%">You need coffee as you are a coder</td> 
                     <td ><button class="btn btn-sm " >Delete</button></td> 
                   </tr>
                  
@@ -125,10 +125,10 @@
                 itemJsonArray.forEach((element, index) => {
                     str += `
                     <tr style="dispaly:flex; class="cell-hyphens">
-                    <th scope="row" class="cell-hyphens"style="width:4%">${index + 1}</th>
-                    <td class="cell-hyphen"style="width:15%">${element[0]}</td>
-                    <td  class="cell-hyphens" style="width:73%">${element[1]}</td> 
-                    <td style="width:8%"><button class="btn btn-sm btn-primary" onclick="deleted(${index})">Delete</button></td> 
+                    <th scope="row" class="cell-hyphens">${index + 1}</th>
+                    <td class="cell-hyphen">${element[0]}</td>
+                    <td  class="cell-hyphens" style="width:75%">${element[1]}</td> 
+                    <td ><button class="btn btn-sm btn-primary" onclick="deleted(${index})">Delete</button></td> 
                     </tr>`; 
                 });
                 tableBody.innerHTML = str;
@@ -158,8 +158,8 @@
         
             function PrintDiv() {  
             var divContents = document.getElementById("items").innerHTML;  
-            var printWindow = window.open('', '', 'height=200,width=400');  
-            printWindow.document.write('<html><head><title>Print DIV Content</title>');  
+            var printWindow = window.open('', '', 'height=600,width=600');  
+            printWindow.document.write('<html><head><title>POWERD BY @AzadHindSoch</title>');  
             printWindow.document.write('</head><body >');  
             printWindow.document.write(divContents);  
             printWindow.document.write('</body></html>');  
