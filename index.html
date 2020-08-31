@@ -125,10 +125,10 @@
                 itemJsonArray.forEach((element, index) => {
                     str += `
                     <tr style="dispaly:flex; class="cell-hyphens">
-                    <th scope="row" class="cell-hyphens">${index + 1}</th>
-                    <td class="cell-hyphen">${element[0]}</td>
-                    <td  class="cell-hyphens" style="width:70%">${element[1]}</td> 
-                    <td ><button class="btn btn-sm btn-primary" onclick="deleted(${index})">Delete</button></td> 
+                    <th scope="row" class="cell-hyphens"style="width:4%">${index + 1}</th>
+                    <td class="cell-hyphen"style="width:15%">${element[0]}</td>
+                    <td  class="cell-hyphens" style="width:73%">${element[1]}</td> 
+                    <td style="width:8%"><button class="btn btn-sm btn-primary" onclick="deleted(${index})">Delete</button></td> 
                     </tr>`; 
                 });
                 tableBody.innerHTML = str;
